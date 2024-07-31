@@ -5,6 +5,7 @@ import requests
 from io import BytesIO
 import transformers
 model = torchvision.models.detection.retinanet_resnet50_fpn(pretrained=True)
+model.eval()
 from tavily import TavilyClient
 # COCO class names
 COCO_CLASSES = [
@@ -54,10 +55,11 @@ def preprocess_detection_results(detected_objects):
         description += f"{label} at location {bbox}. "
     return description
 def get_vqa_answer(image_description, question):
-    prompt = f"For the given Image Description: {image_description}\n please answer the following Question: {question}\n Answer:"
-    client = TavilyClient(api_key='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')
-    response = client.qna_search(query=prompt)
     print(image_description)
+    print(question)
+    prompt = f"For the given Image Description: {image_description}\n please answer the following Question: {question}\n Answer:"
+    client = TavilyClient(api_key='')
+    response = client.qna_search(query=prompt)
     return response
 def retinaTavily_vqa(image_path, question):
     detected_objects = detect_objects(image_path)

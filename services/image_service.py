@@ -67,8 +67,9 @@ def image_search_retina(requestData):
         question = requestData.form['question']
         image_path = f"temp_{image.filename}"
         image.save(image_path)
+        print(image)
         answer = retinaTavily_vqa(image_path, question)
         os.remove(image_path)
-        return make_response({'result':answer[0]})
+        return make_response({'result':answer})
     except Exception as e:
         return make_response({'message': str(e)}, 500)
