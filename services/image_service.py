@@ -43,17 +43,17 @@ def image_search_vilt(requestData):
         answer = calling_vilt_pipeline(image_path, question)
 
         # Store result in ChromaDB
-        collection.add(
-            documents=[answer],
-            metadatas=[{"question": question, "image_name": image.filename}],
-            ids=[f"{image.filename}_{question}"]
-        )
+        # collection.add(
+        #     documents=[answer],
+        #     metadatas=[{"question": question, "image_name": image.filename}],
+        #     ids=[f"{image.filename}_{question}"]
+        # )
         # Generate and store the pickle file 
         # with open('model_output.pickle', 'wb') as file:
         # pickle.dump(output, file)
 
         os.remove(image_path)
-        return make_response({'result':answer})
+        return make_response({'result':answer[0]})
     except Exception as e:
         return make_response({'message': str(e)}, 404)
   
