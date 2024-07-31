@@ -1,6 +1,6 @@
 
 from flask import Blueprint, request
-from services.image_service import image_search, image_search_vilt
+from services.image_service import image_search, image_search_retina, image_search_vilt
 image_route = Blueprint('image_route', __name__)
 
 @DeprecationWarning
@@ -10,4 +10,7 @@ def image():
 @image_route.route("/api/v1/image/vilt", methods=['POST'])
 def image_vilt():
     return image_search_vilt(request)
+@image_route.route("/api/v1/image/retina", methods=['POST'])
+def image_retina():
+    return image_search_retina(request)
     
