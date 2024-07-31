@@ -4,3 +4,5 @@ flask
 chromadb
 pillow
 flask-cors
+torchvision
+tavily-python
