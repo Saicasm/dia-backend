@@ -1,3 +1,4 @@
+import json
 import os
 from flask import make_response
 from models.vilt_model import calling_vilt_pipeline
@@ -17,7 +18,6 @@ def image_search(requestData):
         image.save(image_path)
 
         answer = vqa_model.answer_question(image_path, question)
-
         # Store result in ChromaDB
         collection.add(
             documents=[answer],
@@ -41,16 +41,16 @@ def image_search_vilt(requestData):
         image.save(image_path)
 
         answer = calling_vilt_pipeline(image_path, question)
-
+        json_string = json.dumps(answer, indent=4)
         # Store result in ChromaDB
-        # collection.add(
-        #     documents=[answer],
-        #     metadatas=[{"question": question, "image_name": image.filename}],
-        #     ids=[f"{image.filename}_{question}"]
-        # )
+        collection.add(
+            documents=[json_string],
+            metadatas=[{"question": question, "image_name": image.filename}],
+            ids=[f"{image.filename}_{question}"]
+        )
         # Generate and store the pickle file 
-        # with open('model_output.pickle', 'wb') as file:
-        # pickle.dump(output, file)
+        with open('model_output.pickle', 'wb') as file:
+            pickle.dump(answer, file)
 
         os.remove(image_path)
         return make_response({'result':answer[0]})
