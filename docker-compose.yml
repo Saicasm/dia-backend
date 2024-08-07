@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  frontend:
+    image: saicasm/dia-ui:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_BACKEND_URL=http://localhost:5002
+
+  backend:
+    image: saicasm/dia-backend:latest
+    ports:
+      - "5002:5002"
+    environment:
+      - TRAVILY_SECRET_KEY=your_secret_key
