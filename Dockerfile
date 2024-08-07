@@ -14,10 +14,11 @@ COPY . .
 
 # Set environment variables
 # These can be overridden when running the container
-ENV FLASK_API_SECRET_KEY=
-
+ENV FLASK_APP=app.py
+ENV FLASK_RUN_HOST=0.0.0.0
+ENV FLASK_RUN_PORT=5002
 # Expose the port the app runs on
-EXPOSE 5000
+EXPOSE 5002
 
 # Run the application
 CMD ["flask", "run"]

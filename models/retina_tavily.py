@@ -1,3 +1,4 @@
+import os
 import torch
 import torchvision
 from PIL import Image
@@ -58,7 +59,7 @@ def get_vqa_answer(image_description, question):
     print(image_description)
     print(question)
     prompt = f"For the given Image Description: {image_description}\n please answer the following Question: {question}\n Answer:"
-    client = TavilyClient(api_key='')
+    client = TavilyClient(api_key=os.getenv('TRAVILY_SECRET_KEY'))
     response = client.qna_search(query=prompt)
     return response
 def retinaTavily_vqa(image_path, question):
